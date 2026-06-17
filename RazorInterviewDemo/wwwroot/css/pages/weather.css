@@ -1,0 +1,28 @@
+.weather-body {
+    min-height: 100vh;
+    margin: 0;
+    background: radial-gradient(circle at top, #1a1a1a 0%, #0d0d0d 45%, #050505 100%);
+    color: #ffffff;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+.weather-dashboard {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.weather-dashboard .btn:focus,
+.weather-dashboard .btn:active:focus {
+    box-shadow: none;
+}
+
+@media (max-width: 991.98px) {
+    .weather-dashboard header {
+        justify-content: center !important;
+    }
+
+    .weather-dashboard header > div:nth-child(2) {
+        order: -1;
+        width: 100%;
+    }
+}

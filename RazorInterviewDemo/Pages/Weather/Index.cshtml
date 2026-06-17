@@ -1,0 +1,24 @@
+@page
+@model RazorInterviewDemo.Pages.Weather.IndexModel
+@{
+    ViewData["Title"] = "Погода";
+    Layout = "_WeatherLayout";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/weather.css" asp-append-version="true" />
+}
+
+<div class="weather-dashboard container-fluid px-4 py-4">
+    @await Component.InvokeAsync("TopBar", Model.Dashboard.TopBar)
+
+    <div class="row g-4">
+        <div class="col-xl-5">
+            @await Component.InvokeAsync("WeatherSummary", Model.Dashboard.CurrentWeather)
+            @await Component.InvokeAsync("ForecastCard", Model.Dashboard.Forecast)
+        </div>
+        <div class="col-xl-7">
+            @await Component.InvokeAsync("TemperatureChart", Model.Dashboard.Chart)
+        </div>
+    </div>
+</div>

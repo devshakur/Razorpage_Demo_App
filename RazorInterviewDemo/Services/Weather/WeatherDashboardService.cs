@@ -23,7 +23,7 @@ public class WeatherDashboardService : IWeatherDashboardService
             CurrentWeather = new CurrentWeatherModel
             {
                 Temperature = 18,
-                ConditionIcon = "partly-cloudy",
+                ConditionIcon = "partly-cloudy-lg",
                 FeelsLike = 11,
                 Humidity = 68,
                 WindSpeed = 11

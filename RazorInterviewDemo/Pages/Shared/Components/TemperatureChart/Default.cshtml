@@ -67,7 +67,7 @@
                 var y = paddingTop + plotHeight - ((tick - minTemp) / (double)(maxTemp - minTemp) * plotHeight);
                 <line x1="@paddingLeft" y1="@y.ToString(CultureInfo.InvariantCulture)" x2="@(chartWidth - paddingRight)" y2="@y.ToString(CultureInfo.InvariantCulture)"
                       stroke="#2f2f2f" stroke-dasharray="4 4"/>
-                <text x="8" y="@(y + 4).ToString(CultureInfo.InvariantCulture)" fill="#666666" font-size="11">@tick°</text>
+                @Html.Raw($"<text x=\"8\" y=\"{(y + 4).ToString(CultureInfo.InvariantCulture)}\" fill=\"#666666\" font-size=\"11\">{tick}°</text>")
             }
 
             <path d="@minimumPath" fill="none" stroke="#4da3ff" stroke-width="3" stroke-linecap="round"/>
@@ -93,10 +93,7 @@
                           width="@badgeWidth" height="@badgeHeight" rx="12" fill="#ffffff"/>
                 }
 
-                <text x="@x.ToString(CultureInfo.InvariantCulture)" y="@labelY.ToString(CultureInfo.InvariantCulture)"
-                      text-anchor="middle" font-size="11" style="@labelStyle">
-                    @point.Label
-                </text>
+                @Html.Raw($"<text x=\"{x.ToString(CultureInfo.InvariantCulture)}\" y=\"{labelY.ToString(CultureInfo.InvariantCulture)}\" text-anchor=\"middle\" font-size=\"11\" style=\"{labelStyle}\">{point.Label}</text>")
             }
         </svg>
     </div>
