@@ -1,0 +1,25 @@
+@model CurrentWeatherModel
+
+<section class="d-flex align-items-center justify-content-between mb-4 px-2">
+    <div class="d-flex align-items-center gap-3">
+        @await Html.PartialAsync("_WeatherIcon", Model.ConditionIcon)
+        <div class="display-3 fw-semibold mb-0" style="color: #ffffff; line-height: 1;">
+            @Model.Temperature°C
+        </div>
+    </div>
+
+    <div class="d-flex flex-column gap-2" style="color: #b0b0b0; font-size: 13px;">
+        <div class="d-flex align-items-center gap-2">
+            @await Html.PartialAsync("_WeatherIcon", "thermometer")
+            <span>Ощущается как +@Model.FeelsLike°</span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            @await Html.PartialAsync("_WeatherIcon", "droplet")
+            <span>Влажность @Model.Humidity%</span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            @await Html.PartialAsync("_WeatherIcon", "wind")
+            <span>Ветер @Model.WindSpeed м/с</span>
+        </div>
+    </div>
+</section>

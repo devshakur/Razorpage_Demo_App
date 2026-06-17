@@ -1,0 +1,25 @@
+@model ForecastCardModel
+
+<section class="rounded-4 p-3"
+         style="background-color: #1a1a1a; border: 1px solid #2a2a2a;">
+    <div class="d-flex rounded-pill p-1 mb-3"
+         style="background-color: #111111; border: 1px solid #2a2a2a;">
+        <button type="button"
+                class="btn flex-fill rounded-pill border-0"
+                style="background-color: transparent; color: #888888; font-size: 13px;">
+            @Model.TodayLabel
+        </button>
+        <button type="button"
+                class="btn flex-fill rounded-pill border-0"
+                style="background-color: @(Model.IsWeekView ? "#ffffff" : "transparent"); color: @(Model.IsWeekView ? "#111111" : "#888888"); font-size: 13px;">
+            @Model.WeekLabel
+        </button>
+    </div>
+
+    <div>
+        @foreach (var day in Model.Days)
+        {
+            @await Component.InvokeAsync("ForecastItem", day)
+        }
+    </div>
+</section>
