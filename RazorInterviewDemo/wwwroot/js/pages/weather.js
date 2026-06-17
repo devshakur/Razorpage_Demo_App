@@ -65,6 +65,48 @@
         });
     }
 
+    function initTodayPagination() {
+        const pagination = document.querySelector("[data-today-pagination]");
+        if (!pagination) {
+            return;
+        }
+
+        const pageSize = 7;
+        const items = Array.from(document.querySelectorAll("[data-today-hour-item]"));
+        const totalPages = Number.parseInt(pagination.dataset.totalPages, 10) || 1;
+        let currentPage = 1;
+
+        const prevButton = pagination.querySelector('[data-today-page="prev"]');
+        const nextButton = pagination.querySelector('[data-today-page="next"]');
+        const pageInfo = pagination.querySelector("[data-today-page-info]");
+
+        function showPage(page) {
+            currentPage = page;
+            const start = (page - 1) * pageSize;
+            const end = start + pageSize;
+
+            items.forEach((item, index) => {
+                item.classList.toggle("d-none", index < start || index >= end);
+            });
+
+            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+            prevButton.disabled = currentPage === 1;
+            nextButton.disabled = currentPage === totalPages;
+        }
+
+        prevButton.addEventListener("click", () => {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        });
+
+        nextButton.addEventListener("click", () => {
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        });
+    }
+
     function initForecastTabs() {
         const card = document.querySelector("[data-forecast-card]");
         if (!card) {
@@ -102,5 +144,6 @@
 
     detectLocation();
     initForecastTabs();
+    initTodayPagination();
     initActionButtons();
 })();

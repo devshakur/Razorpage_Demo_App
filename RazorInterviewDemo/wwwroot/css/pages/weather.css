@@ -33,6 +33,11 @@
     opacity: 0.85;
 }
 
+.today-page-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
 @media (max-width: 991.98px) {
     .weather-dashboard header {
         justify-content: center !important;

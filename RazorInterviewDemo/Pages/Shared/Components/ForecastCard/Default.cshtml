@@ -37,9 +37,40 @@
         }
         else
         {
-            @foreach (var hour in Model.TodayHours)
+            <div data-today-hours-list>
+                @for (var index = 0; index < Model.TodayHours.Count; index++)
+                {
+                    <div data-today-hour-item
+                         data-hour-index="@index"
+                         class="@(index >= 7 ? "d-none" : string.Empty)">
+                        @await Component.InvokeAsync("ForecastItem", Model.TodayHours[index])
+                    </div>
+                }
+            </div>
+
+            @if (Model.TodayHours.Count > 7)
             {
-                @await Component.InvokeAsync("ForecastItem", hour)
+                var totalPages = (int)Math.Ceiling(Model.TodayHours.Count / 7.0);
+                <div class="today-pagination d-flex align-items-center justify-content-between mt-2 px-1"
+                     data-today-pagination
+                     data-total-pages="@totalPages">
+                    <button type="button"
+                            class="btn btn-sm rounded-pill px-3 today-page-btn"
+                            data-today-page="prev"
+                            disabled
+                            style="background-color: #2a2a2a; color: #ffffff; border: 1px solid #3a3a3a; font-size: 12px;">
+                        Previous
+                    </button>
+                    <span data-today-page-info style="color: #888888; font-size: 12px;">
+                        Page 1 of @totalPages
+                    </span>
+                    <button type="button"
+                            class="btn btn-sm rounded-pill px-3 today-page-btn"
+                            data-today-page="next"
+                            style="background-color: #2a2a2a; color: #ffffff; border: 1px solid #3a3a3a; font-size: 12px;">
+                        Next
+                    </button>
+                </div>
             }
         }
     </div>

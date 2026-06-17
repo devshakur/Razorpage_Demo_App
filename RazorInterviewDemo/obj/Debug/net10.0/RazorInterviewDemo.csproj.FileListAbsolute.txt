@@ -90,6 +90,6 @@ C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\refint\RazorIntervie
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\RazorInterviewDemo.pdb
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\RazorInterviewDemo.genruntimeconfig.cache
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\ref\RazorInterviewDemo.dll
-c:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\compressed\42b30wd5n9-{0}-dn1et3x33u-dn1et3x33u.gz
-c:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\compressed\7i1u7ictlg-{0}-547es9wyrw-547es9wyrw.gz
 C:\devshakur\RazorDemo\RazorInterviewDemo\bin\Debug\net10.0\RazorInterviewDemo.exe
+c:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\compressed\42b30wd5n9-{0}-m1zr5lvv67-m1zr5lvv67.gz
+c:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\compressed\7i1u7ictlg-{0}-v6jqruux04-v6jqruux04.gz
