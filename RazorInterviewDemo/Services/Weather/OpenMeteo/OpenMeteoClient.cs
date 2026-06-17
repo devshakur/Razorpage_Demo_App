@@ -36,21 +36,44 @@ public class OpenMeteoClient(HttpClient httpClient) : IOpenMeteoClient
         var latitudeValue = latitude.ToString(Invariant);
         var longitudeValue = longitude.ToString(Invariant);
 
-        var url = $"https://geocoding-api.open-meteo.com/v1/reverse?latitude={latitudeValue}&longitude={longitudeValue}&language=en";
-        var response = await httpClient.GetFromJsonAsync<OpenMeteoReverseGeocodeResponse>(url, cancellationToken);
+        var url =
+            $"https://nominatim.openstreetmap.org/reverse?lat={latitudeValue}&lon={longitudeValue}" +
+            "&format=json&addressdetails=1&accept-language=en";
 
-        var result = response?.Results.FirstOrDefault();
-        if (result is null)
+        using var request = new HttpRequestMessage(HttpMethod.Get, url);
+        request.Headers.UserAgent.ParseAdd("RazorInterviewDemo/1.0");
+
+        using var response = await httpClient.SendAsync(request, cancellationToken);
+        if (!response.IsSuccessStatusCode)
         {
-            return "Unknown location";
+            return FormatCoordinates(latitude, longitude);
         }
 
-        if (!string.IsNullOrWhiteSpace(result.Admin1) &&
-            !result.Admin1.Equals(result.Name, StringComparison.OrdinalIgnoreCase))
+        var geocodeResponse = await response.Content.ReadFromJsonAsync<NominatimReverseGeocodeResponse>(
+            cancellationToken: cancellationToken);
+
+        var address = geocodeResponse?.Address;
+        if (address is null)
         {
-            return $"{result.Name}, {result.Admin1}, {result.Country}";
+            return FormatCoordinates(latitude, longitude);
         }
 
-        return $"{result.Name}, {result.Country}";
+        var city = address.City ?? address.Town ?? address.Village ?? address.State ?? string.Empty;
+        var country = address.Country ?? string.Empty;
+
+        if (!string.IsNullOrWhiteSpace(city) && !string.IsNullOrWhiteSpace(country))
+        {
+            return $"{city}, {country}";
+        }
+
+        if (!string.IsNullOrWhiteSpace(geocodeResponse?.DisplayName))
+        {
+            return geocodeResponse.DisplayName;
+        }
+
+        return FormatCoordinates(latitude, longitude);
     }
+
+    private static string FormatCoordinates(double latitude, double longitude) =>
+        $"{latitude.ToString("F2", Invariant)}, {longitude.ToString("F2", Invariant)}";
 }

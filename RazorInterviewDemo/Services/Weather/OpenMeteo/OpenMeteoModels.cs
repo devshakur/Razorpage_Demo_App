@@ -80,20 +80,29 @@ public sealed class OpenMeteoDaily
     public List<double> WindSpeedMax { get; set; } = [];
 }
 
-public sealed class OpenMeteoReverseGeocodeResponse
+public sealed class NominatimReverseGeocodeResponse
 {
-    [JsonPropertyName("results")]
-    public List<OpenMeteoGeocodeResult> Results { get; set; } = [];
+    [JsonPropertyName("display_name")]
+    public string DisplayName { get; set; } = string.Empty;
+
+    [JsonPropertyName("address")]
+    public NominatimAddress? Address { get; set; }
 }
 
-public sealed class OpenMeteoGeocodeResult
+public sealed class NominatimAddress
 {
-    [JsonPropertyName("name")]
-    public string Name { get; set; } = string.Empty;
+    [JsonPropertyName("city")]
+    public string? City { get; set; }
+
+    [JsonPropertyName("town")]
+    public string? Town { get; set; }
+
+    [JsonPropertyName("village")]
+    public string? Village { get; set; }
+
+    [JsonPropertyName("state")]
+    public string? State { get; set; }
 
     [JsonPropertyName("country")]
-    public string Country { get; set; } = string.Empty;
-
-    [JsonPropertyName("admin1")]
-    public string? Admin1 { get; set; }
+    public string? Country { get; set; }
 }

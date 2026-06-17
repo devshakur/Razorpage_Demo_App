@@ -35,12 +35,48 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/devshakur/RazorDemo/RazorInterviewDemo/Pages/Shared/Components/ForecastCard/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXENvbXBvbmVudHNcRm9yZWNhc3RDYXJkXERlZmF1bHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/devshakur/RazorDemo/RazorInterviewDemo/Pages/Shared/Components/ForecastItem/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXENvbXBvbmVudHNcRm9yZWNhc3RJdGVtXERlZmF1bHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/devshakur/RazorDemo/RazorInterviewDemo/Pages/Shared/Components/IconButton/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXENvbXBvbmVudHNcSWNvbkJ1dHRvblxEZWZhdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/devshakur/RazorDemo/RazorInterviewDemo/Pages/Shared/Components/TemperatureChart/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXENvbXBvbmVudHNcVGVtcGVyYXR1cmVDaGFydFxEZWZhdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/devshakur/RazorDemo/RazorInterviewDemo/Pages/Shared/Components/TopBar/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXENvbXBvbmVudHNcVG9wQmFyXERlZmF1bHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/devshakur/RazorDemo/RazorInterviewDemo/Pages/Shared/Components/WeatherSummary/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXENvbXBvbmVudHNcV2VhdGhlclN1bW1hcnlcRGVmYXVsdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/devshakur/RazorDemo/RazorInterviewDemo/Pages/Shared/_Button.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9CdXR0b24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/devshakur/RazorDemo/RazorInterviewDemo/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/devshakur/RazorDemo/RazorInterviewDemo/Pages/Shared/_WeatherIcon.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9XZWF0aGVySWNvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/devshakur/RazorDemo/RazorInterviewDemo/Pages/Shared/_WeatherLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9XZWF0aGVyTGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/devshakur/RazorDemo/RazorInterviewDemo/Pages/Weather/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2VhdGhlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/devshakur/RazorDemo/RazorInterviewDemo/Pages/_ViewImports.cshtml]
