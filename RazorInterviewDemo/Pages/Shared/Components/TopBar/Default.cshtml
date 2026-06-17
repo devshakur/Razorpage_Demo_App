@@ -9,7 +9,8 @@
         }
     </div>
 
-    <div class="rounded-pill d-inline-flex align-items-center gap-2 px-4 py-2 mx-auto"
+    <div id="weather-location"
+         class="rounded-pill d-inline-flex align-items-center gap-2 px-4 py-2 mx-auto"
          style="background-color: #ffffff; color: #111111; font-weight: 500; min-width: 280px; justify-content: center;">
         @await Html.PartialAsync("_WeatherIcon", "location")
         <span>@Model.Location</span>
@@ -20,7 +21,8 @@
         @await Component.InvokeAsync("IconButton", new IconButtonModel
         {
             Icon = "settings",
-            IsCircular = true
+            IsCircular = true,
+            Action = "refresh-weather"
         })
         <img src="@Model.AvatarUrl"
              alt="Profile"

@@ -8,4 +8,5 @@ public class IconButtonModel
     public bool IsActive { get; set; }
     public bool IsCircular { get; set; }
     public string CssClass { get; set; } = string.Empty;
+    public string? Action { get; set; }
 }

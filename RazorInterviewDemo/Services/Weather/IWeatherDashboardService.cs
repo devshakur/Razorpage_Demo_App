@@ -4,5 +4,8 @@ namespace RazorInterviewDemo.Services.Weather;
 
 public interface IWeatherDashboardService
 {
-    WeatherPageViewModel GetDashboard();
+    Task<WeatherPageViewModel> GetDashboardAsync(
+        double latitude,
+        double longitude,
+        CancellationToken cancellationToken = default);
 }

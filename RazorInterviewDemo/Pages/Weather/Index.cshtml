@@ -1,7 +1,7 @@
 @page
 @model RazorInterviewDemo.Pages.Weather.IndexModel
 @{
-    ViewData["Title"] = "Погода";
+    ViewData["Title"] = "Weather";
     Layout = "_WeatherLayout";
 }
 
@@ -9,16 +9,47 @@
     <link rel="stylesheet" href="~/css/pages/weather.css" asp-append-version="true" />
 }
 
-<div class="weather-dashboard container-fluid px-4 py-4">
-    @await Component.InvokeAsync("TopBar", Model.Dashboard.TopBar)
+@section Scripts {
+    <script src="~/js/pages/weather.js" asp-append-version="true"></script>
+}
 
-    <div class="row g-4">
-        <div class="col-xl-5">
-            @await Component.InvokeAsync("WeatherSummary", Model.Dashboard.CurrentWeather)
-            @await Component.InvokeAsync("ForecastCard", Model.Dashboard.Forecast)
-        </div>
-        <div class="col-xl-7">
-            @await Component.InvokeAsync("TemperatureChart", Model.Dashboard.Chart)
+@if (Model.IsLoading)
+{
+    <div class="weather-dashboard container-fluid px-4 py-5">
+        <div id="weather-loading" class="weather-loading rounded-4 p-5 text-center">
+            <div class="spinner-border text-light mb-3" role="status" aria-hidden="true"></div>
+            <p class="mb-1" style="color: #ffffff; font-size: 18px;">Detecting your location</p>
+            <p class="mb-0" style="color: #888888; font-size: 14px;">Loading live weather from Open-Meteo</p>
         </div>
     </div>
-</div>
+}
+else if (Model.HasError)
+{
+    <div class="weather-dashboard container-fluid px-4 py-5">
+        <div class="weather-loading rounded-4 p-5 text-center">
+            <p class="mb-3" style="color: #ff8a8a;">@Model.ErrorMessage</p>
+            <button type="button"
+                    class="btn rounded-pill px-4"
+                    style="background-color: #ffffff; color: #111111;"
+                    data-action="refresh-weather">
+                Retry
+            </button>
+        </div>
+    </div>
+}
+else
+{
+    <div class="weather-dashboard container-fluid px-4 py-4">
+        @await Component.InvokeAsync("TopBar", Model.Dashboard.TopBar)
+
+        <div class="row g-4">
+            <div class="col-xl-5">
+                @await Component.InvokeAsync("WeatherSummary", Model.Dashboard.CurrentWeather)
+                @await Component.InvokeAsync("ForecastCard", Model.Dashboard.Forecast)
+            </div>
+            <div class="col-xl-7">
+                @await Component.InvokeAsync("TemperatureChart", Model.Dashboard.Chart)
+            </div>
+        </div>
+    </div>
+}

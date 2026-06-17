@@ -10,9 +10,10 @@
         : "padding: 10px 18px;";
 }
 
-<a href="@Model.Url"
-   class="btn d-inline-flex align-items-center justify-content-center gap-2 @shapeClass @Model.CssClass"
-   style="@activeStyle @sizeStyle font-size: 14px;">
+<button type="button"
+        class="btn d-inline-flex align-items-center justify-content-center gap-2 @shapeClass @Model.CssClass weather-icon-button"
+        style="@activeStyle @sizeStyle font-size: 14px;"
+        data-action="@Model.Action">
     @if (!string.IsNullOrEmpty(Model.Icon))
     {
         @await Html.PartialAsync("_WeatherIcon", Model.Icon)
@@ -21,4 +22,4 @@
     {
         <span>@Model.Text</span>
     }
-</a>
+</button>

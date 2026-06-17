@@ -11,9 +11,26 @@
     margin: 0 auto;
 }
 
+.weather-loading {
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    max-width: 520px;
+    margin: 80px auto 0;
+}
+
 .weather-dashboard .btn:focus,
 .weather-dashboard .btn:active:focus {
     box-shadow: none;
+}
+
+.forecast-tab.is-active {
+    background-color: #ffffff !important;
+    color: #111111 !important;
+}
+
+.weather-icon-button.is-pressed {
+    transform: scale(0.96);
+    opacity: 0.85;
 }
 
 @media (max-width: 991.98px) {

@@ -1,23 +1,55 @@
 @model ForecastCardModel
 
 <section class="rounded-4 p-3"
-         style="background-color: #1a1a1a; border: 1px solid #2a2a2a;">
+         style="background-color: #1a1a1a; border: 1px solid #2a2a2a;"
+         data-forecast-card>
     <div class="d-flex rounded-pill p-1 mb-3"
-         style="background-color: #111111; border: 1px solid #2a2a2a;">
+         style="background-color: #111111; border: 1px solid #2a2a2a;"
+         role="tablist"
+         aria-label="Forecast view">
         <button type="button"
-                class="btn flex-fill rounded-pill border-0"
-                style="background-color: transparent; color: #888888; font-size: 13px;">
-            @Model.TodayLabel
+                class="btn flex-fill rounded-pill border-0 forecast-tab is-active"
+                data-forecast-tab="today"
+                role="tab"
+                aria-selected="true"
+                aria-controls="forecast-panel-today"
+                style="background-color: #ffffff; color: #111111; font-size: 13px;">
+            Today, @Model.TodayDateLabel
         </button>
         <button type="button"
-                class="btn flex-fill rounded-pill border-0"
-                style="background-color: @(Model.IsWeekView ? "#ffffff" : "transparent"); color: @(Model.IsWeekView ? "#111111" : "#888888"); font-size: 13px;">
+                class="btn flex-fill rounded-pill border-0 forecast-tab"
+                data-forecast-tab="week"
+                role="tab"
+                aria-selected="false"
+                aria-controls="forecast-panel-week"
+                style="background-color: transparent; color: #888888; font-size: 13px;">
             @Model.WeekLabel
         </button>
     </div>
 
-    <div>
-        @foreach (var day in Model.Days)
+    <div id="forecast-panel-today"
+         class="forecast-panel"
+         data-forecast-panel="today"
+         role="tabpanel">
+        @if (Model.TodayHours.Count == 0)
+        {
+            <p class="text-center mb-0 py-3" style="color: #888888;">No hourly forecast available.</p>
+        }
+        else
+        {
+            @foreach (var hour in Model.TodayHours)
+            {
+                @await Component.InvokeAsync("ForecastItem", hour)
+            }
+        }
+    </div>
+
+    <div id="forecast-panel-week"
+         class="forecast-panel d-none"
+         data-forecast-panel="week"
+         role="tabpanel"
+         hidden>
+        @foreach (var day in Model.WeekDays)
         {
             @await Component.InvokeAsync("ForecastItem", day)
         }

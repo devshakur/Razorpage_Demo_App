@@ -8,4 +8,5 @@ public class ForecastDayModel
     public int LowTemp { get; set; }
     public int Humidity { get; set; }
     public int WindSpeed { get; set; }
+    public bool IsToday { get; set; }
 }
