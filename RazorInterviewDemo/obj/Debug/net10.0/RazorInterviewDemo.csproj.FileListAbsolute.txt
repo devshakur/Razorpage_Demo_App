@@ -2,7 +2,6 @@ C:\devshakur\RazorDemo\RazorInterviewDemo\bin\Debug\net10.0\appsettings.Developm
 C:\devshakur\RazorDemo\RazorInterviewDemo\bin\Debug\net10.0\appsettings.json
 C:\devshakur\RazorDemo\RazorInterviewDemo\bin\Debug\net10.0\RazorInterviewDemo.staticwebassets.runtime.json
 C:\devshakur\RazorDemo\RazorInterviewDemo\bin\Debug\net10.0\RazorInterviewDemo.staticwebassets.endpoints.json
-C:\devshakur\RazorDemo\RazorInterviewDemo\bin\Debug\net10.0\RazorInterviewDemo.exe
 C:\devshakur\RazorDemo\RazorInterviewDemo\bin\Debug\net10.0\RazorInterviewDemo.deps.json
 C:\devshakur\RazorDemo\RazorInterviewDemo\bin\Debug\net10.0\RazorInterviewDemo.runtimeconfig.json
 C:\devshakur\RazorDemo\RazorInterviewDemo\bin\Debug\net10.0\RazorInterviewDemo.dll
@@ -18,9 +17,7 @@ C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\RazorInterviewDemo.R
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\rjimswa.dswa.cache.json
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
-C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\scopedcss\bundle\RazorInterviewDemo.styles.css
-C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\scopedcss\projectbundle\RazorInterviewDemo.bundle.scp.css
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\compressed\vb4svbj66k-{0}-b9sayid5wm-b9sayid5wm.gz
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\compressed\lske6lir9o-{0}-61n19gt1b8-61n19gt1b8.gz
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\compressed\uszt0p95w2-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
@@ -83,8 +80,6 @@ C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\compressed\eimtxq54z
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\compressed\l6bi0594hi-{0}-muycvpuwrr-muycvpuwrr.gz
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\compressed\1w9xwwj3p5-{0}-87fc7y1x7t-87fc7y1x7t.gz
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\compressed\dwb1yf0hw7-{0}-mlv21k5csn-mlv21k5csn.gz
-C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\compressed\8zni0b2i64-{0}-ss9fmj0306-ss9fmj0306.gz
-C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\compressed\pqb4xecbsj-{0}-ss9fmj0306-ss9fmj0306.gz
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\staticwebassets.build.json
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\staticwebassets.build.json.cache
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\staticwebassets.development.json
@@ -97,3 +92,4 @@ C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\RazorInterviewDemo.g
 C:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\ref\RazorInterviewDemo.dll
 c:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\compressed\42b30wd5n9-{0}-dn1et3x33u-dn1et3x33u.gz
 c:\devshakur\RazorDemo\RazorInterviewDemo\obj\Debug\net10.0\compressed\7i1u7ictlg-{0}-547es9wyrw-547es9wyrw.gz
+C:\devshakur\RazorDemo\RazorInterviewDemo\bin\Debug\net10.0\RazorInterviewDemo.exe
