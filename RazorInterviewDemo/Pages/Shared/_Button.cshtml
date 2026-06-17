@@ -1,0 +1,8 @@
+@model ButtonModel
+
+<a href="@Model.Url"
+   class="btn @Model.CssClass"
+   target="@(Model.OpenInNewTab ? "_blank" : "_self")"
+   rel="@(Model.OpenInNewTab ? "noopener noreferrer" : null)">
+    @Model.Text
+</a>
