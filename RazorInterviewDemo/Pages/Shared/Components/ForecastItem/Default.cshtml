@@ -1,11 +1,10 @@
 @model ForecastDayModel
 
-<div class="d-flex align-items-center justify-content-between py-3 px-3 rounded-3 mb-1"
-     style="background-color: @(Model.IsToday ? "#2a2a2a" : "#222222"); border: 1px solid @(Model.IsToday ? "#444444" : "#2e2e2e");">
-    <div style="color: #ffffff; min-width: 110px; font-size: 14px;">@Model.DayName</div>
+<div class="forecast-item d-flex align-items-center justify-content-between py-3 px-3 rounded-3 mb-1 @(Model.IsToday ? "forecast-item--today" : string.Empty)">
+    <div class="weather-text-primary" style="min-width: 110px; font-size: 14px;">@Model.DayName</div>
 
-    <div class="d-flex align-items-center gap-3 flex-grow-1 justify-content-center"
-         style="color: #9a9a9a; font-size: 12px;">
+    <div class="d-flex align-items-center gap-3 flex-grow-1 justify-content-center weather-text-subtle"
+         style="font-size: 12px;">
         <span class="d-inline-flex align-items-center gap-1">
             @await Html.PartialAsync("_WeatherIcon", "thermometer")
             @Model.LowTemp°/@Model.HighTemp°
@@ -22,6 +21,6 @@
 
     <div class="d-flex align-items-center gap-2" style="min-width: 70px; justify-content: flex-end;">
         @await Html.PartialAsync("_WeatherIcon", Model.ConditionIcon)
-        <span style="color: #ffffff; font-size: 15px; font-weight: 500;">@Model.HighTemp°C</span>
+        <span class="weather-text-primary" style="font-size: 15px; font-weight: 500;">@Model.HighTemp°C</span>
     </div>
 </div>

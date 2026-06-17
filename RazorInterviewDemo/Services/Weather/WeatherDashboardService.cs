@@ -46,14 +46,16 @@ public class WeatherDashboardService(IOpenMeteoClient openMeteoClient) : IWeathe
         return new TopBarModel
         {
             Location = $"{locationName} {currentTemperature}°C",
-            Greeting = "Hello!",
-            AvatarUrl = "https://i.pravatar.cc/80?img=12",
             NavButtons =
             [
-                new IconButtonModel { Text = "Weather", Icon = "cloud", IsActive = true, Action = "nav-weather" },
-                new IconButtonModel { Icon = "clipboard", IsCircular = true, Action = "nav-notes" },
-                new IconButtonModel { Icon = "car", IsCircular = true, Action = "nav-travel" }
-            ]
+                new IconButtonModel { Text = "Weather", Icon = "cloud", IsActive = true, Action = "nav-weather" }
+            ],
+            SettingsButton = new IconButtonModel
+            {
+                Icon = "settings",
+                IsCircular = true,
+                Action = "theme-cycle"
+            }
         };
     }
 

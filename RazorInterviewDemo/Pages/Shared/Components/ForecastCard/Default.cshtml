@@ -1,10 +1,7 @@
 @model ForecastCardModel
 
-<section class="rounded-4 p-3"
-         style="background-color: #1a1a1a; border: 1px solid #2a2a2a;"
-         data-forecast-card>
-    <div class="d-flex rounded-pill p-1 mb-3"
-         style="background-color: #111111; border: 1px solid #2a2a2a;"
+<section class="weather-card rounded-4 p-3" data-forecast-card>
+    <div class="weather-panel d-flex rounded-pill p-1 mb-3"
          role="tablist"
          aria-label="Forecast view">
         <button type="button"
@@ -12,8 +9,7 @@
                 data-forecast-tab="today"
                 role="tab"
                 aria-selected="true"
-                aria-controls="forecast-panel-today"
-                style="background-color: #ffffff; color: #111111; font-size: 13px;">
+                aria-controls="forecast-panel-today">
             Today, @Model.TodayDateLabel
         </button>
         <button type="button"
@@ -21,8 +17,7 @@
                 data-forecast-tab="week"
                 role="tab"
                 aria-selected="false"
-                aria-controls="forecast-panel-week"
-                style="background-color: transparent; color: #888888; font-size: 13px;">
+                aria-controls="forecast-panel-week">
             @Model.WeekLabel
         </button>
     </div>
@@ -33,7 +28,7 @@
          role="tabpanel">
         @if (Model.TodayHours.Count == 0)
         {
-            <p class="text-center mb-0 py-3" style="color: #888888;">No hourly forecast available.</p>
+            <p class="text-center mb-0 py-3 weather-text-muted">No hourly forecast available.</p>
         }
         else
         {
@@ -57,17 +52,15 @@
                     <button type="button"
                             class="btn btn-sm rounded-pill px-3 today-page-btn"
                             data-today-page="prev"
-                            disabled
-                            style="background-color: #2a2a2a; color: #ffffff; border: 1px solid #3a3a3a; font-size: 12px;">
+                            disabled>
                         Previous
                     </button>
-                    <span data-today-page-info style="color: #888888; font-size: 12px;">
+                    <span data-today-page-info class="weather-text-muted" style="font-size: 12px;">
                         Page 1 of @totalPages
                     </span>
                     <button type="button"
                             class="btn btn-sm rounded-pill px-3 today-page-btn"
-                            data-today-page="next"
-                            style="background-color: #2a2a2a; color: #ffffff; border: 1px solid #3a3a3a; font-size: 12px;">
+                            data-today-page="next">
                         Next
                     </button>
                 </div>

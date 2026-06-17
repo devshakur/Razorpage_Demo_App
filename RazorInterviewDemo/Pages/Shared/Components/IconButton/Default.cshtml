@@ -2,17 +2,15 @@
 
 @{
     var shapeClass = Model.IsCircular ? "rounded-circle" : "rounded-pill";
-    var activeStyle = Model.IsActive
-        ? "background-color: #ffffff; color: #111111; border: none;"
-        : "background-color: #2a2a2a; color: #ffffff; border: 1px solid #3a3a3a;";
     var sizeStyle = Model.IsCircular
         ? "width: 42px; height: 42px; padding: 0;"
         : "padding: 10px 18px;";
+    var activeClass = Model.IsActive ? "is-active" : string.Empty;
 }
 
 <button type="button"
-        class="btn d-inline-flex align-items-center justify-content-center gap-2 @shapeClass @Model.CssClass weather-icon-button"
-        style="@activeStyle @sizeStyle font-size: 14px;"
+        class="btn d-inline-flex align-items-center justify-content-center gap-2 @shapeClass @Model.CssClass weather-icon-button @activeClass"
+        style="@sizeStyle"
         data-action="@Model.Action">
     @if (!string.IsNullOrEmpty(Model.Icon))
     {

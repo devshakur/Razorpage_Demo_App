@@ -1,6 +1,8 @@
 (() => {
     const DEFAULT_LATITUDE = 40.7128;
     const DEFAULT_LONGITUDE = -74.0060;
+    const THEME_STORAGE_KEY = "weather-theme";
+    const THEME_CYCLE = ["dark", "light", "ocean", "sunset"];
 
     function getCoordinatesFromQuery() {
         const params = new URLSearchParams(window.location.search);
@@ -54,8 +56,6 @@
             const isActive = tab.dataset.forecastTab === tabName;
             tab.classList.toggle("is-active", isActive);
             tab.setAttribute("aria-selected", isActive ? "true" : "false");
-            tab.style.backgroundColor = isActive ? "#ffffff" : "transparent";
-            tab.style.color = isActive ? "#111111" : "#888888";
         });
 
         panels.forEach((panel) => {
@@ -63,6 +63,31 @@
             panel.classList.toggle("d-none", !isActive);
             panel.hidden = !isActive;
         });
+    }
+
+    function updateThemeButtons(theme) {
+        const settingsButton = document.querySelector('[data-action="theme-cycle"]');
+        if (settingsButton) {
+            settingsButton.classList.toggle("is-active", THEME_CYCLE.includes(theme));
+        }
+    }
+
+    function cycleTheme() {
+        const currentTheme = document.body.dataset.theme || "dark";
+        const currentIndex = THEME_CYCLE.indexOf(currentTheme);
+        const nextIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % THEME_CYCLE.length;
+        applyTheme(THEME_CYCLE[nextIndex]);
+    }
+
+    function applyTheme(theme) {
+        document.body.dataset.theme = theme;
+        localStorage.setItem(THEME_STORAGE_KEY, theme);
+        updateThemeButtons(theme);
+    }
+
+    function initTheme() {
+        const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || "dark";
+        applyTheme(savedTheme);
     }
 
     function initTodayPagination() {
@@ -124,16 +149,14 @@
         document.querySelectorAll("[data-action]").forEach((button) => {
             button.addEventListener("click", () => {
                 switch (button.dataset.action) {
-                    case "refresh-weather":
-                        window.location.reload();
+                    case "theme-cycle":
+                        cycleTheme();
                         break;
                     case "nav-weather":
                         setActiveForecastTab("today");
                         break;
-                    case "nav-notes":
-                    case "nav-travel":
-                        button.classList.add("is-pressed");
-                        window.setTimeout(() => button.classList.remove("is-pressed"), 180);
+                    case "refresh-weather":
+                        window.location.reload();
                         break;
                     default:
                         break;
@@ -143,6 +166,7 @@
     }
 
     detectLocation();
+    initTheme();
     initForecastTabs();
     initTodayPagination();
     initActionButtons();

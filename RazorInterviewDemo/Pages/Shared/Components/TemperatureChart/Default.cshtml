@@ -42,11 +42,10 @@
     var minimumPath = BuildPath(p => p.Minimum);
 }
 
-<section class="rounded-4 p-4 h-100"
-         style="background-color: #1a1a1a; border: 1px solid #2a2a2a; min-height: 420px;">
+<section class="weather-card rounded-4 p-4 h-100" style="min-height: 420px;">
     <div class="d-flex align-items-start justify-content-between mb-3 flex-wrap gap-2">
-        <h2 class="h5 mb-0" style="color: #ffffff;">@Model.Title</h2>
-        <div class="d-flex gap-3 flex-wrap" style="font-size: 12px; color: #aaaaaa;">
+        <h2 class="h5 mb-0 weather-text-primary">@Model.Title</h2>
+        <div class="d-flex gap-3 flex-wrap weather-text-secondary" style="font-size: 12px;">
             <span class="d-inline-flex align-items-center gap-1">
                 <span class="rounded-circle d-inline-block" style="width: 8px; height: 8px; background-color: #ffffff;"></span>
                 average
@@ -64,7 +63,7 @@
 
     @if (count == 0)
     {
-        <p class="text-center mb-0 py-5" style="color: #888888;">No chart data available.</p>
+        <p class="text-center mb-0 py-5 weather-text-muted">No chart data available.</p>
     }
     else
     {

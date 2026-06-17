@@ -13,7 +13,12 @@ builder.Services.AddRazorPages();
 builder.Services.AddHttpClient<IOpenMeteoClient, OpenMeteoClient>(client =>
 {
     client.BaseAddress = new Uri("https://api.open-meteo.com/v1/");
-    client.Timeout = TimeSpan.FromSeconds(15);
+    client.Timeout = TimeSpan.FromSeconds(30);
+});
+builder.Services.AddHttpClient("Nominatim", client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(30);
+    client.DefaultRequestHeaders.UserAgent.ParseAdd("RazorInterviewDemo/1.0");
 });
 builder.Services.AddScoped<IWeatherDashboardService, WeatherDashboardService>();
 
