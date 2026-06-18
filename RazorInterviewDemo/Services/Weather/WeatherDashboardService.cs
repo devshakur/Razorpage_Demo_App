@@ -35,6 +35,14 @@ public class WeatherDashboardService(
                 longitude);
             locationName = FormatCoordinates(latitude, longitude);
         }
+
+        return BuildDashboardFromForecast(forecast, locationName);
+    }
+
+    public WeatherPageViewModel BuildDashboardFromForecast(
+        OpenMeteoForecastResponse forecast,
+        string locationName)
+    {
         var current = forecast.Current ?? throw new InvalidOperationException("Current weather data is unavailable.");
 
         var currentTemperature = (int)Math.Round(current.Temperature);

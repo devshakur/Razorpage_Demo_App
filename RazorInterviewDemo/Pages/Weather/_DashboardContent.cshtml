@@ -1,0 +1,15 @@
+@model RazorInterviewDemo.Models.Weather.WeatherPageViewModel
+
+<div class="weather-dashboard container-fluid px-4 py-4" id="weather-root">
+    @await Component.InvokeAsync("TopBar", Model.TopBar)
+
+    <div class="row g-4">
+        <div class="col-xl-5">
+            @await Component.InvokeAsync("WeatherSummary", Model.CurrentWeather)
+            @await Component.InvokeAsync("ForecastCard", Model.Forecast)
+        </div>
+        <div class="col-xl-7">
+            @await Component.InvokeAsync("TemperatureChart", Model.Chart)
+        </div>
+    </div>
+</div>

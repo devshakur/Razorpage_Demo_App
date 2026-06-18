@@ -3,6 +3,11 @@
     const DEFAULT_LONGITUDE = -74.0060;
     const THEME_STORAGE_KEY = "weather-theme";
     const THEME_CYCLE = ["dark", "light", "ocean", "sunset"];
+    const FORECAST_PARAMS =
+        "current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code" +
+        "&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code" +
+        "&daily=weather_code,temperature_2m_max,temperature_2m_min,relative_humidity_2m_mean,wind_speed_10m_max" +
+        "&forecast_days=7&timezone=auto&wind_speed_unit=ms";
 
     function getCoordinatesFromQuery() {
         const params = new URLSearchParams(window.location.search);
@@ -13,7 +18,133 @@
             return null;
         }
 
-        return { latitude, longitude };
+        return {
+            latitude: Number.parseFloat(latitude),
+            longitude: Number.parseFloat(longitude)
+        };
+    }
+
+    function formatCoordinates(latitude, longitude) {
+        return `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
+    }
+
+    function buildForecastUrl(latitude, longitude) {
+        const params = new URLSearchParams({
+            latitude: latitude.toFixed(4),
+            longitude: longitude.toFixed(4)
+        });
+
+        return `https://api.open-meteo.com/v1/forecast?${params.toString()}&${FORECAST_PARAMS}`;
+    }
+
+    async function fetchForecast(latitude, longitude) {
+        const response = await fetch(buildForecastUrl(latitude, longitude));
+        if (!response.ok) {
+            throw new Error(`Forecast request failed with status ${response.status}`);
+        }
+
+        return response.json();
+    }
+
+    async function fetchLocationName(latitude, longitude) {
+        const params = new URLSearchParams({
+            lat: latitude.toFixed(4),
+            lon: longitude.toFixed(4),
+            format: "json",
+            addressdetails: "1",
+            "accept-language": "en"
+        });
+
+        try {
+            const response = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?${params.toString()}`,
+                {
+                    headers: {
+                        Accept: "application/json"
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                return formatCoordinates(latitude, longitude);
+            }
+
+            const geocode = await response.json();
+            const address = geocode.address;
+            if (!address) {
+                return formatCoordinates(latitude, longitude);
+            }
+
+            const city = address.city || address.town || address.village || address.state || "";
+            const country = address.country || "";
+
+            if (city && country) {
+                return `${city}, ${country}`;
+            }
+
+            if (geocode.display_name) {
+                return geocode.display_name;
+            }
+        } catch {
+            return formatCoordinates(latitude, longitude);
+        }
+
+        return formatCoordinates(latitude, longitude);
+    }
+
+    function showWeatherError(root) {
+        root.innerHTML = `
+            <div class="weather-loading rounded-4 p-5 text-center">
+                <p class="mb-3 weather-text-error">Unable to load live weather data. Please try again.</p>
+                <button type="button"
+                        class="btn rounded-pill px-4 weather-accent-btn"
+                        data-action="refresh-weather">
+                    Retry
+                </button>
+            </div>`;
+
+        initActionButtons();
+    }
+
+    async function loadWeatherFromClient() {
+        const root = document.getElementById("weather-root");
+        const loading = document.getElementById("weather-loading-deferred");
+        const coords = getCoordinatesFromQuery();
+
+        if (!root || !loading || !coords) {
+            return;
+        }
+
+        try {
+            const [forecast, locationName] = await Promise.all([
+                fetchForecast(coords.latitude, coords.longitude),
+                fetchLocationName(coords.latitude, coords.longitude)
+            ]);
+
+            const response = await fetch("/weather/render", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "text/html"
+                },
+                body: JSON.stringify({
+                    forecast,
+                    locationName
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Render request failed with status ${response.status}`);
+            }
+
+            const html = await response.text();
+            root.outerHTML = html;
+            initForecastTabs();
+            initTodayPagination();
+            initActionButtons();
+        } catch {
+            showWeatherError(root);
+        }
     }
 
     function redirectWithCoordinates(latitude, longitude) {
@@ -166,6 +297,7 @@
     }
 
     detectLocation();
+    loadWeatherFromClient();
     initTheme();
     initForecastTabs();
     initTodayPagination();

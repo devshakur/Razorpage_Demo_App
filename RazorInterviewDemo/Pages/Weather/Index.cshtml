@@ -23,32 +23,13 @@
         </div>
     </div>
 }
-else if (Model.HasError)
+else if (Model.AwaitingWeatherData)
 {
-    <div class="weather-dashboard container-fluid px-4 py-5">
-        <div class="weather-loading rounded-4 p-5 text-center">
-            <p class="mb-3 weather-text-error">@Model.ErrorMessage</p>
-            <button type="button"
-                    class="btn rounded-pill px-4 weather-accent-btn"
-                    data-action="refresh-weather">
-                Retry
-            </button>
-        </div>
-    </div>
-}
-else
-{
-    <div class="weather-dashboard container-fluid px-4 py-4">
-        @await Component.InvokeAsync("TopBar", Model.Dashboard.TopBar)
-
-        <div class="row g-4">
-            <div class="col-xl-5">
-                @await Component.InvokeAsync("WeatherSummary", Model.Dashboard.CurrentWeather)
-                @await Component.InvokeAsync("ForecastCard", Model.Dashboard.Forecast)
-            </div>
-            <div class="col-xl-7">
-                @await Component.InvokeAsync("TemperatureChart", Model.Dashboard.Chart)
-            </div>
+    <div class="weather-dashboard container-fluid px-4 py-5" id="weather-root">
+        <div id="weather-loading-deferred" class="weather-loading rounded-4 p-5 text-center">
+            <div class="spinner-border text-light mb-3" role="status" aria-hidden="true"></div>
+            <p class="mb-1 weather-text-primary" style="font-size: 18px;">Loading live weather</p>
+            <p class="mb-0 weather-text-muted" style="font-size: 14px;">Fetching forecast from Open-Meteo</p>
         </div>
     </div>
 }
