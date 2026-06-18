@@ -1,0 +1,10 @@
+**/.git
+**/.vs
+**/.vscode
+**/bin
+**/obj
+**/publish
+**/*.user
+**/*.suo
+**/agent-tools
+**/terminals

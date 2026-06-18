@@ -90,12 +90,39 @@ Both are free for non-commercial use. The server must have outbound HTTPS access
 
 ## Deployment
 
-This app has no database. Deploy the published output to any host that supports **.NET 10** and outbound HTTPS, for example:
+This app ships with Docker and [Render](https://render.com) blueprint support.
 
-- Azure App Service
-- Railway / Render / Fly.io
-- Docker (Azure Container Apps, Cloud Run, etc.)
-- Linux VPS with Nginx reverse proxy
+### Option 1: Render (recommended)
+
+1. Push this repo to GitHub.
+2. Sign in to [Render](https://dashboard.render.com/).
+3. Click **New +** → **Blueprint**.
+4. Connect the `Razorpage_Demo_App` repository.
+5. Render reads `render.yaml` and creates the web service.
+6. Wait for the Docker build to finish, then open the generated URL.
+
+The container listens on port `8080` and runs in `Production` mode.
+
+### Option 2: Docker
+
+```bash
+docker build -t razor-weather .
+docker run -p 8080:8080 -e ASPNETCORE_ENVIRONMENT=Production razor-weather
+```
+
+Open [http://localhost:8080](http://localhost:8080).
+
+### Option 3: Manual publish
+
+```bash
+dotnet publish RazorInterviewDemo/RazorInterviewDemo.csproj -c Release -o ./publish
+cd publish
+ASPNETCORE_URLS=http://0.0.0.0:8080 dotnet RazorInterviewDemo.dll
+```
+
+Other compatible hosts: Azure App Service, Railway, Fly.io, or a Linux VPS with Nginx.
+
+Requirements: **.NET 10** runtime (or use the provided Dockerfile) and outbound HTTPS to Open-Meteo and Nominatim.
 
 ## License
 
