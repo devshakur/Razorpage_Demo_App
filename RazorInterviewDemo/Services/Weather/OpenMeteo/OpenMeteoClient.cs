@@ -40,54 +40,51 @@ public class OpenMeteoClient(HttpClient httpClient, IHttpClientFactory httpClien
         double longitude,
         CancellationToken cancellationToken = default)
     {
-        return await ExecuteWithRetryAsync(
-            async token =>
-            {
-                var latitudeValue = latitude.ToString(Invariant);
-                var longitudeValue = longitude.ToString(Invariant);
+        var latitudeValue = latitude.ToString(Invariant);
+        var longitudeValue = longitude.ToString(Invariant);
 
-                var url =
-                    $"https://nominatim.openstreetmap.org/reverse?lat={latitudeValue}&lon={longitudeValue}" +
-                    "&format=json&addressdetails=1&accept-language=en";
+        var url =
+            $"https://nominatim.openstreetmap.org/reverse?lat={latitudeValue}&lon={longitudeValue}" +
+            "&format=json&addressdetails=1&accept-language=en";
 
-                var nominatimClient = httpClientFactory.CreateClient("Nominatim");
-                using var response = await nominatimClient.GetAsync(url, token);
-                if (!response.IsSuccessStatusCode)
-                {
-                    return FormatCoordinates(latitude, longitude);
-                }
+        var nominatimClient = httpClientFactory.CreateClient("Nominatim");
+        using var response = await nominatimClient.GetAsync(url, cancellationToken);
+        if (!response.IsSuccessStatusCode)
+        {
+            return FormatCoordinates(latitude, longitude);
+        }
 
-                var geocodeResponse = await response.Content.ReadFromJsonAsync<NominatimReverseGeocodeResponse>(
-                    cancellationToken: token);
+        var geocodeResponse = await response.Content.ReadFromJsonAsync<NominatimReverseGeocodeResponse>(
+            cancellationToken: cancellationToken);
 
-                var address = geocodeResponse?.Address;
-                if (address is null)
-                {
-                    return FormatCoordinates(latitude, longitude);
-                }
+        var address = geocodeResponse?.Address;
+        if (address is null)
+        {
+            return FormatCoordinates(latitude, longitude);
+        }
 
-                var city = address.City ?? address.Town ?? address.Village ?? address.State ?? string.Empty;
-                var country = address.Country ?? string.Empty;
+        var city = address.City ?? address.Town ?? address.Village ?? address.State ?? string.Empty;
+        var country = address.Country ?? string.Empty;
 
-                if (!string.IsNullOrWhiteSpace(city) && !string.IsNullOrWhiteSpace(country))
-                {
-                    return $"{city}, {country}";
-                }
+        if (!string.IsNullOrWhiteSpace(city) && !string.IsNullOrWhiteSpace(country))
+        {
+            return $"{city}, {country}";
+        }
 
-                if (!string.IsNullOrWhiteSpace(geocodeResponse?.DisplayName))
-                {
-                    return geocodeResponse.DisplayName;
-                }
+        if (!string.IsNullOrWhiteSpace(geocodeResponse?.DisplayName))
+        {
+            return geocodeResponse.DisplayName;
+        }
 
-                return FormatCoordinates(latitude, longitude);
-            },
-            cancellationToken);
+        return FormatCoordinates(latitude, longitude);
     }
 
     private static async Task<T> ExecuteWithRetryAsync<T>(
         Func<CancellationToken, Task<T>> action,
         CancellationToken cancellationToken)
     {
+        Exception? lastException = null;
+
         for (var attempt = 1; attempt <= MaxAttempts; attempt++)
         {
             try
@@ -99,11 +96,12 @@ public class OpenMeteoClient(HttpClient httpClient, IHttpClientFactory httpClien
                 attempt < MaxAttempts &&
                 !cancellationToken.IsCancellationRequested)
             {
+                lastException = exception;
                 await Task.Delay(TimeSpan.FromMilliseconds(500 * attempt), cancellationToken);
             }
         }
 
-        throw new InvalidOperationException("Retry loop exited unexpectedly.");
+        throw lastException ?? new InvalidOperationException("Retry loop exited unexpectedly.");
     }
 
     private static bool IsTransient(Exception exception) =>

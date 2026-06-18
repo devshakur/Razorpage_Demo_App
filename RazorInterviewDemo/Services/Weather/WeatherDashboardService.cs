@@ -4,22 +4,37 @@ using RazorInterviewDemo.Services.Weather.OpenMeteo;
 
 namespace RazorInterviewDemo.Services.Weather;
 
-public class WeatherDashboardService(IOpenMeteoClient openMeteoClient) : IWeatherDashboardService
+public class WeatherDashboardService(
+    IOpenMeteoClient openMeteoClient,
+    ILogger<WeatherDashboardService> logger) : IWeatherDashboardService
 {
     private static readonly CultureInfo EnglishCulture = CultureInfo.GetCultureInfo("en-US");
+    private static readonly TimeSpan ApiTimeout = TimeSpan.FromSeconds(55);
 
     public async Task<WeatherPageViewModel> GetDashboardAsync(
         double latitude,
         double longitude,
         CancellationToken cancellationToken = default)
     {
-        var forecastTask = openMeteoClient.GetForecastAsync(latitude, longitude, cancellationToken);
-        var locationTask = openMeteoClient.GetLocationNameAsync(latitude, longitude, cancellationToken);
+        using var timeoutCts = new CancellationTokenSource(ApiTimeout);
+        var apiToken = timeoutCts.Token;
 
-        await Task.WhenAll(forecastTask, locationTask);
+        var forecast = await openMeteoClient.GetForecastAsync(latitude, longitude, apiToken);
 
-        var forecast = await forecastTask;
-        var locationName = await locationTask;
+        string locationName;
+        try
+        {
+            locationName = await openMeteoClient.GetLocationNameAsync(latitude, longitude, apiToken);
+        }
+        catch (Exception exception) when (exception is not OperationCanceledException)
+        {
+            logger.LogWarning(
+                exception,
+                "Location lookup failed for {Latitude}, {Longitude}; using coordinates",
+                latitude,
+                longitude);
+            locationName = FormatCoordinates(latitude, longitude);
+        }
         var current = forecast.Current ?? throw new InvalidOperationException("Current weather data is unavailable.");
 
         var currentTemperature = (int)Math.Round(current.Temperature);
@@ -224,4 +239,7 @@ public class WeatherDashboardService(IOpenMeteoClient openMeteoClient) : IWeathe
     {
         return index >= 0 && index < values.Count ? values[index] : fallback;
     }
+
+    private static string FormatCoordinates(double latitude, double longitude) =>
+        $"{latitude.ToString("F2", CultureInfo.InvariantCulture)}, {longitude.ToString("F2", CultureInfo.InvariantCulture)}";
 }
